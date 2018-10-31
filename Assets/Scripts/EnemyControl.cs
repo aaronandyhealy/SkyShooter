@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyControl : MonoBehaviour {
 
-
+    public Text scoreText;
     public GameObject EnemyBulletGO;
     public GameObject enemyFirePoint;
     float timer;
@@ -20,6 +21,7 @@ public class EnemyControl : MonoBehaviour {
     private int direction;
     private float maxDist;
     private float minDist;
+  
 
     // Use this for initialization
     void Start () {
@@ -69,4 +71,14 @@ public class EnemyControl : MonoBehaviour {
             timer = 0;
         }
 	}
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag.Equals("PlayerBullet"))
+        {
+            Destroy(col.gameObject);
+            Destroy(gameObject);
+        }
+
+    }
 }

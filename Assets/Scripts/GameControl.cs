@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameControl : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GameControl : MonoBehaviour
     public bool gameOver = false;               //Is the game over?
     public float scrollSpeed = -1.5f;
     public string loadLevel;
+
+
 
 
     void Awake()

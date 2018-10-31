@@ -24,9 +24,10 @@ GameObject:
   - component: {fileID: 111374470205046124}
   - component: {fileID: 95836802254794958}
   - component: {fileID: 50113743089448650}
+  - component: {fileID: 58861371491695968}
   m_Layer: 0
   m_Name: enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,6 +94,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58861371491695968
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1474364049253020}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.39
 --- !u!95 &95836802254794958
 Animator:
   serializedVersion: 3
@@ -171,8 +187,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -857561389
-  m_SortingLayer: 3
+  m_SortingLayerID: -1917595407
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 33930de76c2ce8543b02dc0deef7e081, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

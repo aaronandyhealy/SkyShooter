@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - enemyBullet
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
@@ -13,10 +16,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Background
+  - Middleground
+  - Foreground
+  - Enemies
   - 
   - 
   - 
@@ -49,4 +52,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 3437405907
+    locked: 0
+  - name: Enemies
+    uniqueID: 2377371889
     locked: 0
