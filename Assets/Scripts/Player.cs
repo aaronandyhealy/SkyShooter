@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    public float upForce = 20f;
+    public float speed = 5f;
     private bool isDead = false;
     private Rigidbody2D rb2d;
 
@@ -31,11 +31,14 @@ public class Player : MonoBehaviour {
 
         if (isDead == false)
         {
-            if(Input.GetMouseButton(0))
-            {
-                rb2d.velocity = Vector2.zero;
-                rb2d.AddForce(new Vector2(0, upForce));
-            }
+
+            // What is the player doing with the controls?
+            Vector3 move = new Vector3(Input.GetAxis("Horizontal"),
+                Input.GetAxis("Vertical"), 0);
+
+            // Update the ships position each frame
+            transform.position += move
+                * speed * Time.deltaTime;
         }
 	}
 

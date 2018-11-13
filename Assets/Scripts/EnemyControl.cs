@@ -10,11 +10,7 @@ public class EnemyControl : MonoBehaviour {
     public GameObject enemyFirePoint;
     float timer;
     private int waitingTime = 3;
-
-
-
-
-
+    public int scoreValue = 1;               // The amount added to the player's score when the enemy dies.
 
     float speed;
     private Vector3 initialPosition;
@@ -70,7 +66,9 @@ public class EnemyControl : MonoBehaviour {
 
             timer = 0;
         }
-	}
+
+
+    }
 
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -78,6 +76,7 @@ public class EnemyControl : MonoBehaviour {
         {
             Destroy(col.gameObject);
             Destroy(gameObject);
+            GameControl.score += scoreValue;
         }
 
     }

@@ -11,8 +11,9 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
-        // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
-        InvokeRepeating("Spawn", spawnTime, spawnTime);
+            // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
+            InvokeRepeating("Spawn", spawnTime, spawnTime);
+        
     }
 
 
@@ -25,7 +26,13 @@ public class EnemyManager : MonoBehaviour
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
         Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
     }
+    private void Update()
+    {
 
-
-   
+        // Stop spawning once game over
+        if (GameControl.instance.gameOver == true)
+        {
+            CancelInvoke("Spawn");
+        }
+    }
 }

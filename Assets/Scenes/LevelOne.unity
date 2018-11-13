@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 177953530}
   - component: {fileID: 177953531}
   - component: {fileID: 177953532}
+  - component: {fileID: 177953533}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -206,7 +207,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -488,7 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c0293fb160bec04ea06284ab780edd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upForce: 200
+  speed: 20
   PlayerBulletGO: {fileID: 1501139403172436, guid: 069a52d56c74b4c40aa1473b4e6c71c9,
     type: 2}
   firePoint: {fileID: 1796653779}
@@ -510,6 +511,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &177953533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 177953526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edac362f58a678f45b0a0c800ad18f38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HorzRange: {x: -5, y: 5}
+  VertRange: {x: -3, y: 3}
 --- !u!1 &199671619
 GameObject:
   m_ObjectHideFlags: 0
