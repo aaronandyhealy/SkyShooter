@@ -3,7 +3,7 @@ guid: 33930de76c2ce8543b02dc0deef7e081
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
-  serializedVersion: 5
+  serializedVersion: 7
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -21,6 +21,8 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -31,7 +33,7 @@ TextureImporter:
     serializedVersion: 2
     filterMode: -1
     aniso: -1
-    mipBias: -1
+    mipBias: -100
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -48,7 +50,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -70,15 +72,85 @@ TextureImporter:
   spriteSheet:
     serializedVersion: 2
     sprites: []
-    outline: []
-    physicsShape: []
+    outline:
+    - - {x: -8, y: 34}
+      - {x: -14, y: 26}
+      - {x: -24, y: 22}
+      - {x: -31, y: 16}
+      - {x: -36, y: 9}
+      - {x: -38, y: 2}
+      - {x: -37, y: -10}
+      - {x: -30, y: -21}
+      - {x: -24, y: -26}
+      - {x: -22, y: -24}
+      - {x: -27, y: -19}
+      - {x: -29, y: -12}
+      - {x: -28, y: -3}
+      - {x: -23, y: 2}
+      - {x: -23, y: -11}
+      - {x: -22, y: -19}
+      - {x: -18, y: -30}
+      - {x: -12, y: -39}
+      - {x: -15, y: -26}
+      - {x: -15, y: -18}
+      - {x: -12, y: -4}
+      - {x: -7, y: -10}
+      - {x: -1, y: -13}
+      - {x: 7, y: -12}
+      - {x: 13, y: -6}
+      - {x: 16, y: -11}
+      - {x: 16, y: -20}
+      - {x: 15, y: -30}
+      - {x: 13, y: -38}
+      - {x: 22, y: -25}
+      - {x: 24, y: 0}
+      - {x: 28, y: -3}
+      - {x: 30, y: -10}
+      - {x: 29, y: -17}
+      - {x: 25, y: -21}
+      - {x: 25, y: -25}
+      - {x: 31, y: -21}
+      - {x: 36, y: -13}
+      - {x: 38, y: 1}
+      - {x: 34, y: 11}
+      - {x: 28, y: 19}
+      - {x: 15, y: 27}
+      - {x: 11, y: 33}
+      - {x: 1, y: 39}
+    - - {x: -38, y: -4}
+      - {x: -38, y: -3}
+      - {x: -27, y: -3}
+      - {x: -27, y: -4}
+    - - {x: -21, y: -14}
+      - {x: -21, y: -8}
+      - {x: -21, y: -14}
+      - {x: -21, y: -14}
+    - - {x: 0, y: -13}
+      - {x: 0, y: -12}
+      - {x: 3, y: -12}
+      - {x: 3, y: -13}
+    - - {x: 8, y: -4}
+      - {x: 10, y: -6}
+      - {x: 13, y: -6}
+      - {x: 9, y: -5}
+    - - {x: 8, y: 32}
+      - {x: 8, y: 34}
+      - {x: 8, y: 34}
+      - {x: 8, y: 32}
+    physicsShape:
+    - - {x: -39, y: 39}
+      - {x: -39, y: -39}
+      - {x: 39, y: -39}
+      - {x: 39, y: 39}
     bones: []
-    spriteID: ced0d43a451b7c44f88f6b24b52032e7
+    spriteID: 0440c07b58dbb9f46a05322b919b6db9
     vertices: []
     indices: 
     edges: []
     weights: []
   spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

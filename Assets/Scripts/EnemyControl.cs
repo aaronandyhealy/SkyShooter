@@ -5,32 +5,36 @@ using UnityEngine.UI;
 
 public class EnemyControl : MonoBehaviour {
 
-    public Text scoreText;
     public GameObject EnemyBulletGO;
     public GameObject enemyFirePoint;
-    float timer;
+    private float timer;
+    private float time;
     private int waitingTime = 3;
     public int scoreValue = 1;               // The amount added to the player's score when the enemy dies.
 
-    float speed;
-    private Vector3 initialPosition;
+    private float speed;
     private int direction;
     private float maxDist;
     private float minDist;
-  
+
+    System.Random random = new System.Random(); //Used for random number generation
+ 
+
+
 
     // Use this for initialization
     void Start () {
-        speed = 2f;
-        initialPosition = transform.position;
+
+        speed = random.Next(1, 5);
         direction = -1;
-        maxDist += transform.position.x;
-        minDist -= transform.position.x;
+        maxDist = 9;
+        minDist = -9;
+        time = Time.time;
     }
 	
 	// Update is called once per frame
 	void Update () {
-
+        
         switch (direction)
         {
             case -1:
@@ -57,8 +61,16 @@ public class EnemyControl : MonoBehaviour {
                 break;
         }
 
-
         timer += Time.deltaTime;
+
+        if (time > 20)
+        {
+            waitingTime = 2;
+        }else if(time > 30)
+        {
+            waitingTime = 1;
+        }
+
         if (timer > waitingTime)
         {
             GameObject bullet = (GameObject)Instantiate(EnemyBulletGO);

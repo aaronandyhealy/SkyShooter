@@ -2,18 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class MainMenu : MonoBehaviour {
 
     public string loadLevel;
+    public string loadOne;
+    public string loadTwo;
+    public string loadThree;
 
-	// Use this for initialization
-	public void PlayGame () {
-        SceneManager.LoadScene(loadLevel);
+    // Load Level One
+    public void PlayLevelOne () {
+        SceneManager.LoadScene(loadOne);
 	}
-	
-	// Update is called once per frame
-	public void QuitGame () {
+
+    // Load Level Two
+    public void PlayLevelTwo()
+    {
+        SceneManager.LoadScene(loadTwo);
+    }
+
+    //Load Level Three
+    public void PlayLevelThree()
+    {
+        SceneManager.LoadScene(loadThree);
+    }
+
+    //Load Instructions Page
+    public void ViewInstructions()
+    {
+        SceneManager.LoadScene(loadLevel);
+    }
+
+    // Quit Game
+    public void QuitGame () {
         Application.Quit();
 	}
 }
