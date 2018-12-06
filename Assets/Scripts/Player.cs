@@ -22,6 +22,10 @@ public class Player : MonoBehaviour {
     private float minSwipeDist = 30.0f;
     private float maxSwipeTime = 0.5f;
     bool canInvoke = true;
+    private int health = 3;
+    public GameObject heartOne;
+    public GameObject heartTwo;
+    public GameObject heartThree;
 
 
     // Use this for initialization
@@ -147,7 +151,28 @@ public class Player : MonoBehaviour {
         AudioSource.PlayClipAtPoint(playerFire, transform.position);
     }
 
-    private void OnCollisionEnter2D()
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        Destroy(coll.gameObject);
+        if(health == 2)
+        {
+            health = 1;
+            Destroy(heartTwo);
+        }
+        else if (health == 3)
+        {
+            health = 2;
+            Destroy(heartOne);
+        }
+        else
+        {
+            Destroy(heartThree);
+            GameOver();
+        }
+
+    }
+
+    private void GameOver()
     {
         //Check level and dependig on this update highscore
         one = string.Equals(level, "One");
@@ -177,7 +202,6 @@ public class Player : MonoBehaviour {
         isDead = true;
         GameControl.instance.Crash();
         Destroy(gameObject);
-
     }
 
 
