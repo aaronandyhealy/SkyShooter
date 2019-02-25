@@ -2,143 +2,102 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+using LockingPolicy = Thalmic.Myo.LockingPolicy;
+using Pose = Thalmic.Myo.Pose;
+using UnlockType = Thalmic.Myo.UnlockType;
+using VibrationType = Thalmic.Myo.VibrationType;
+
+// Orient the object to match that of the Myo armband.
+// Compensate for initial yaw (orientation about the gravity vector) and roll (orientation about
+// the wearer's arm) by allowing the user to set a reference orientation.
+// Making the fingers spread pose or pressing the 'r' key resets the reference orientation.
 public class Player : MonoBehaviour {
 
     public float speed = 5f;
     private bool isDead = false;
-    
+
     public AudioClip playerFire;
-    public  GameObject PlayerBulletGO;
-    public  GameObject firePoint;
-    public string level;
-    private bool one = false;
-    private bool two = false;
-    private bool three = false;
+    public GameObject PlayerBulletGO;
+    public GameObject firePoint;
 
-    private float fingerStartTime = 0.0f;
-    private Vector2 fingerStartPos = Vector2.zero;
 
-    private bool isSwipe = false;
-    private float minSwipeDist = 30.0f;
-    private float maxSwipeTime = 0.5f;
-    bool canInvoke = true;
     private int health = 3;
     public GameObject heartOne;
     public GameObject heartTwo;
     public GameObject heartThree;
 
 
-    // Use this for initialization
-    void Start () {
-        Input.multiTouchEnabled = true;
+    // Myo game object to connect with.
+    // This object must have a ThalmicMyo script attached.
+    public GameObject myo = null;
 
-    }
+    // A rotation that compensates for the Myo armband's orientation parallel to the ground, i.e. yaw.
+    // Once set, the direction the Myo armband is facing becomes "forward" within the program.
+    // Set by making the fingers spread pose or pressing "r".
+    private Quaternion _antiYaw = Quaternion.identity;
 
-    // Update is called once per frame
-    void Update() {
+    // A reference angle representing how the armband is rotated about the wearer's arm, i.e. roll.
+    // Set by making the fingers spread pose or pressing "r".
+    private float _referenceRoll = 0.0f;
 
+    // The pose from the last update. This is used to determine if the pose has changed
+    // so that actions are only performed upon making them rather than every frame during
+    // which they are active.
+    private Pose _lastPose = Pose.Unknown;
+
+
+
+    // Update is called once per frame.
+    void Update()
+    {
         if (isDead == false)
         {
-            if (Input.touchCount > 0 && Time.timeScale > 0.0f)
+            // Access the ThalmicMyo component attached to the Myo object.
+            ThalmicMyo thalmicMyo = myo.GetComponent<ThalmicMyo>();
+
+            // Vibrate the Myo armband when a fist is made.
+            if (thalmicMyo.pose == Pose.WaveOut)
             {
-
-                foreach (Touch touch in Input.touches)
+                if (transform.position.x < 8)
                 {
-                    if ((touch.position.x < Screen.width / 2))
-                    {
-                        if (touch.phase == TouchPhase.Began)
-                    {
-                        isSwipe = true;
-                        fingerStartTime = Time.time;
-                        fingerStartPos = touch.position;
-                    }
-
-                    if (touch.phase != TouchPhase.Ended && touch.phase != TouchPhase.Canceled)
-                    {
-
-
-                        float gestureTime = Time.time - fingerStartTime;
-                        float gestureDist = (touch.position - fingerStartPos).magnitude;
-
-                        if (canInvoke && isSwipe && gestureTime < maxSwipeTime && gestureDist > minSwipeDist)
-                        {
-                                canInvoke = false;
-                                Invoke("invokeMovement", .4f);
-
-                                Vector2 direction = touch.position - fingerStartPos;
-                                //Vector2 swipeType = Vector2.zero;
-                                int swipeType = -1;
-                                if (Mathf.Abs(direction.normalized.x) > 0.9)
-                                {
-
-                                    if (Mathf.Sign(direction.x) > 0) swipeType = 0; // swipe right
-                                    else swipeType = 1; // swipe left
-
-                                }
-                                else if (Mathf.Abs(direction.normalized.y) > 0.9)
-                                {
-                                    if (Mathf.Sign(direction.y) > 0) swipeType = 2; // swipe up
-                                    else swipeType = 3; // swipe down
-                                }
-
-
-                                switch (swipeType)
-                                {
-
-                                    case 0: //right
-                                        if (transform.position.x < 8)
-                                        {
-                                            transform.position += Vector3.right * speed * Time.deltaTime;
-                                        }
-                                        break;
-
-
-                                    case 1: //left
-                                        if (transform.position.x > -8)
-                                        {
-                                            transform.position -= Vector3.right * speed * Time.deltaTime;
-                                        }
-                                        break;
-
-                                    case 2: //up
-                                        if (transform.position.y < 1.5)
-                                        {
-                                            transform.position += Vector3.up * speed * Time.deltaTime;
-                                        }
-                                        break;
-
-                                    case 3: //down
-                                        if (transform.position.y > -2.5)
-                                        {
-                                            transform.position -= Vector3.up * speed * Time.deltaTime;
-                                        }
-                                        break;
-
-
-                                }
-                            }
-
-                        }
-
-                    }
-
-                    else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
-                    {
-                        canInvoke = true;
-                    }
-
+                    transform.position += Vector3.right * speed * Time.deltaTime;
                 }
 
+                ExtendUnlockAndNotifyUserAction(thalmicMyo);
+
+                // Change material when wave in, wave out or double tap poses are made.
+            }
+            else if (thalmicMyo.pose == Pose.WaveIn)
+            {
+                if (transform.position.x > -8)
+                {
+                    transform.position -= Vector3.right * speed * Time.deltaTime;
+                }
+
+                ExtendUnlockAndNotifyUserAction(thalmicMyo);
+            }
+            else if (thalmicMyo.pose == Pose.Fist)
+            {
+                Fire();
+
+                ExtendUnlockAndNotifyUserAction(thalmicMyo);
             }
         }
     }
 
-
-    public void invokeMovement()
+    // Extend the unlock if ThalmcHub's locking policy is standard, and notifies the given myo that a user action was
+    // recognized.
+    void ExtendUnlockAndNotifyUserAction(ThalmicMyo myo)
     {
+        ThalmicHub hub = ThalmicHub.instance;
 
-        canInvoke = true;
+        if (hub.lockingPolicy == LockingPolicy.Standard)
+        {
+            myo.Unlock(UnlockType.Timed);
+        }
 
+        myo.NotifyUserAction();
     }
 
 
@@ -174,31 +133,6 @@ public class Player : MonoBehaviour {
 
     private void GameOver()
     {
-        //Check level and dependig on this update highscore
-        one = string.Equals(level, "One");
-        two = string.Equals(level, "Two");
-        three = string.Equals(level, "Three");
-        if (one == true)
-        {
-            if (PlayerPrefs.GetFloat("LvlOneHighscore") < GameControl.score)
-            {
-                PlayerPrefs.SetFloat("LvlOneHighscore", GameControl.score);
-            }
-        }
-        else if (two == true)
-        {
-            if (PlayerPrefs.GetFloat("LvlTwoHighscore") < GameControl.score)
-            {
-                PlayerPrefs.SetFloat("LvlTwoHighscore", GameControl.score);
-            }
-        }
-        else if (three == true)
-        {
-            if (PlayerPrefs.GetFloat("LvlThreeHighscore") < GameControl.score)
-            {
-                PlayerPrefs.SetFloat("LvlThreeHighscore", GameControl.score);
-            }
-        }
         isDead = true;
         GameControl.instance.Crash();
         Destroy(gameObject);
