@@ -13,9 +13,9 @@ namespace Thalmic.Myo
 #elif UNITY_ANDROID
         private const string MYO_DLL = "myo-android";
 #elif WIN64
-        private const string MYO_DLL = "myo64.dll";
+        private const string MYO_DLL = "myo.dll";
 #elif WIN32
-        private const string MYO_DLL = "myo32.dll";
+        private const string MYO_DLL = "myo.dll";
 #endif
 
         public enum Result

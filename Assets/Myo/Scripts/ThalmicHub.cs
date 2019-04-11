@@ -48,6 +48,7 @@ public class ThalmicHub : MonoBehaviour
                 myo.internalMyo = null;
             }
         }
+        
 #if UNITY_ANDROID && !UNITY_EDITOR
         AndroidJavaClass unityPlayerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         var unityActivity = unityPlayerClass.GetStatic<AndroidJavaObject>("currentActivity");
@@ -66,12 +67,13 @@ public class ThalmicHub : MonoBehaviour
     {
         // Ensure that there is only one ThalmicHub.
         if (_instance != null) {
+            /*
 #if UNITY_EDITOR
             EditorUtility.DisplayDialog("Can only have one ThalmicHub",
                                         "Your scene contains more than one ThalmicHub. Remove all but one ThalmicHub.",
                                         "OK");
-#endif
-            Destroy (this.gameObject);
+#endif 
+            Destroy (this.gameObject); */
             return;
         } else {
             _instance = this;

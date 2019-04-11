@@ -1,8 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
+using UnityEngine.UI;
+
+using Pose = Thalmic.Myo.Pose;
 
 public class GameControl : MonoBehaviour
 {
@@ -14,8 +16,6 @@ public class GameControl : MonoBehaviour
     public bool gameOver = false;               //Is the game over?
     public float scrollSpeed = -1.5f;
     public string loadLevel;
-
-
 
 
     void Awake()
@@ -40,6 +40,8 @@ public class GameControl : MonoBehaviour
         scoreText.text = "Score: " + score;
     }
 
+   
+
     // Use this for initialization
     public void MainMenu()
     {
@@ -57,7 +59,11 @@ public class GameControl : MonoBehaviour
     {
         //Activate the game over text.
         gameOvertext.SetActive(true);
+        
         //Set the game to be over.
         gameOver = true;
+
     }
+
+  
 }
